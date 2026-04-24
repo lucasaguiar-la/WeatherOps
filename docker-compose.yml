@@ -24,11 +24,13 @@ services:
     ports:
       - "8000:8000"
     environment:
+      API_KEY: ${API_KEY}
       DB_NAME: weather
       USER: user
       PASSWORD: password
       HOST: db
       PORT: 5432
+      FRONTEND_URL: http://localhost:5173
     networks:
       - weather-network
 
