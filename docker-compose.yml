@@ -6,11 +6,11 @@ services:
     container_name: weather-db
     restart: always
     environment:
-      POSTGRES_DB: weather
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${USER}
+      POSTGRES_PASSWORD: ${PASSWORD}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
@@ -25,12 +25,12 @@ services:
       - "8000:8000"
     environment:
       API_KEY: ${API_KEY}
-      DB_NAME: weather
-      USER: user
-      PASSWORD: password
+      DB_NAME: ${DB_NAME}
+      USER: ${USER}
+      PASSWORD: ${PASSWORD}
       HOST: db
       PORT: 5432
-      FRONTEND_URL: http://localhost:5173
+      FRONTEND_URL: ${FRONTEND_URL}
     networks:
       - weather-network
 

@@ -45,11 +45,12 @@ api_Weather/
 É necessário criar um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 ```
 API_KEY=seu_token_openweathermap
-DB_NAME=nome_banco
-USER=usuario_banco
+DB_NAME=weather_db
+USER=weather_user
 PASSWORD=senha_banco
-HOST=host_banco
-PORT=porta_banco
+HOST=localhost
+PORT=5433
+FRONTEND_URL=http://localhost:5173
 ```
 
 ### Banco de Dados
