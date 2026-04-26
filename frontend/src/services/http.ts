@@ -1,4 +1,4 @@
-const DEFAULT_API_BASE_URL = 'http://localhost:8000';
+const DEFAULT_API_URL = 'http://localhost:8000';
 
 export class HttpError extends Error {
   status: number;
@@ -12,8 +12,8 @@ export class HttpError extends Error {
   }
 }
 
-export const API_BASE_URL = (
-  import.meta.env.VITE_API_BASE_URL?.trim() || DEFAULT_API_BASE_URL
+export const API_URL = (
+  import.meta.env.VITE_API_URL?.trim() || DEFAULT_API_URL
 ).replace(/\/$/, '');
 
 function fixLegacyText(value: string) {
@@ -76,7 +76,7 @@ function extractErrorMessage(payload: unknown, fallbackMessage: string) {
 }
 
 export async function http<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(`${API_URL}${path}`, {
     headers: {
       Accept: 'application/json',
       ...(init?.headers ?? {}),

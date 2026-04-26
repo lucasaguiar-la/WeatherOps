@@ -77,7 +77,7 @@ export function HistoryPage() {
           </div>
         ) : (
           <HistoryTable
-            records={historyQuery.data}
+            records={historyQuery.data ?? []}
             isClearingAll={clearMutation.isPending}
             deletingId={deleteMutation.isPending ? deleteMutation.variables : null}
             onClearAll={() => clearMutation.mutate()}

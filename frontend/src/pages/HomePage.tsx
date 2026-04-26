@@ -24,26 +24,12 @@ export function HomePage() {
     <div className="page">
       <section className="hero">
         <div className="hero__grid">
-          <span className="page-header__eyebrow">Dashboard</span>
-          <h1>Base enxuta, profissional e pronta para integrar com a API atual.</h1>
+          <h1>Seus dados de clima em um só lugar.</h1>
           <p>
             Este frontend organiza a experiencia em quatro areas: visao geral, consulta de
-            clima, historico operacional e monitoramento. A camada de adapters absorve as
-            inconsistencias do contrato legado sem exigir reescrita do backend.
+            clima, historico operacional e monitoramento.
           </p>
         </div>
-      </section>
-
-      <section className="stats-grid">
-        <Card title="Stack" description="React, TypeScript, Vite, Router e TanStack Query.">
-          <p className="metric__value metric__value--compact">Foco total no frontend</p>
-        </Card>
-        <Card title="Integracao" description="Base URL por ambiente e servicos separados por dominio.">
-          <p className="metric__value metric__value--compact">Adapters para legado</p>
-        </Card>
-        <Card title="UX" description="Loading, erro, estado vazio e feedback visual para acoes.">
-          <p className="metric__value metric__value--compact">Pronto para crescer</p>
-        </Card>
       </section>
 
       <section className="dashboard-grid">

@@ -1,100 +1,69 @@
-# Weather API Client
-Este é um projeto Python que fornece uma API REST para consulta de previsão do tempo, armazenando os dados em um banco de dados PostgreSQL. A aplicação pode ser executada via Docker Compose, facilitando a configuração dos serviços.
+# WeatherOps
 
----
+Este é um projeto **Fullstack** para consulta de previsão do tempo, com histórico de buscas e monitoramento de API. O projeto utiliza uma arquitetura robusta com Frontend em React, Backend em FastAPI e banco de dados PostgreSQL, tudo orquestrado via Docker e utilizando Nginx.
 
-## Sobre o Projeto
-O projeto consiste em uma API que permite consultar dados meteorológicos de cidades, salvando as informações em um banco de dados para posterior análise. A aplicação utiliza a API OpenWeatherMap para obter coordenadas geográficas e dados climáticos.
+</br>
 
-## Tecnologias Utilizadas
-- Python 3.13
-- FastAPI
-- PostgreSQL
-- Docker
-- Bibliotecas Python:
-  - requests
-  - psycopg2-binary
-  - python-dotenv
-  - outras (ver requirements.txt)
+##  Tecnologias
+- **Frontend:** React (TypeScript), Vite, TanStack Query.
+- **Backend:** Python 3.13, FastAPI, PostgreSQL.
+- **DevOps/Infra:** Docker, Docker Compose, Nginx (Reverse Proxy).
+- **API Externa:** OpenWeatherMap.
 
 ## Estrutura do Projeto
-```
+```text
 api_Weather/
-    ├── api/
-    │   ├── __init__.py
-    │   └── endpoints.py        # Rotas da API
-    ├── data/
-    │   ├── coordinates_data.json   # Cache de dados de coordenadas
-    │   └── weather_data.json       # Cache de dados meteorológicos
-    ├── scripts/
-    │   ├── __init__.py
-    │   ├── database.py            # Gerenciamento do banco de dados
-    │   └── get_weather_data.py    # Cliente da API externa
-    ├── utils/
-    │   ├── __init__.py
-    │   └── formatter.py           # Utilitários de formatação
-    ├── Dockerfile
-    ├── main.py                    # Ponto de entrada da aplicação
-    ├── requirements.in
-    └── requirements.txt
+├── backend/            # API REST em FastAPI
+│   ├── app/            # Lógica central, rotas e banco
+│   └── database/       # Scripts SQL e modelagem
+├── frontend/           # SPA em React + TypeScript
+│   ├── src/            # Componentes, hooks e serviços
+│   ├── Dockerfile      # Build multi-stage (Node + Nginx)
+│   └── nginx.conf      # Configuração de proxy reverso
+└── docker-compose.yml  # Orquestração de todos os serviços
 ```
 
-## Configuração
+## ⚙️ Configuração
 
 ### Variáveis de Ambiente
-É necessário criar um arquivo `.env` na raiz do projeto com as seguintes variáveis:
-```
+Crie um arquivo `.env` na raiz do projeto seguindo o modelo abaixo:
+```env
+# Backend & DB
 API_KEY=seu_token_openweathermap
-DB_NAME=weather_db
-USER=weather_user
-PASSWORD=senha_banco
-HOST=localhost
-PORT=5433
-FRONTEND_URL=http://localhost:5173
+DB_NAME=weather
+USER=postgres
+PASSWORD=suasenha
+FRONTEND_URL=http://localhost  # URL que acessará o frontend
+
+# Frontend (Configurações de Build)
+VITE_API_URL=http://localhost/api
 ```
 
-### Banco de Dados
-O projeto utiliza PostgreSQL e requer duas tabelas principais (que ja são criados automaticamente):
-- `locations`: Armazena dados de localização
-- `climate_data`: Armazena dados meteorológicos
+## 🛠️ Como Executar
 
-## Endpoints da API
+### Via Docker (Recomendado para Produção/Portfólio)
+O projeto está configurado para subir todos os serviços (Banco, API e Frontend) com um único comando. O Nginx servirá o frontend na porta 80 e encaminhará as chamadas de API.
 
-- `GET /`: Página inicial
-- `GET /weather?city={cidade}`: Consulta temperatura atual
-- `GET /history`: Lista histórico de consultas
-- `DELETE /delete/{record_id}`: Remove um registro específico
-- `DELETE /all`: Limpa todos os registros
-
-## Docker
-Para executar o projeto usando Docker:
 ```bash
-docker build -t weather-api .
-docker run -p 8000:8000 weather-api
+docker compose up --build -d
 ```
+Acesse: `http://localhost`
 
-## Como Executar Localmente
-1. Clone o repositório
-```bash
-git clone https://github.com/lucasaguiar-la/api_Weather
-cd api_Weather
-```
-2. Instale as dependências:
-```bash
-pip install -r requirements.txt
-```
-3. Execute a aplicação:
-```bash
-uvicorn main:app --reload
-```
+### Desenvolvimento Local (Backend)
+1. Instale as dependências: `pip install -r requirements.txt`
+2. Inicie a API: `python main.py` ou `uvicorn backend.app.main:app --reload`
 
-## Funcionalidades
-- API REST com FastAPI
-- Consulta de dados meteorológicos por cidade
-- Histórico de consultas
-- Armazenamento em PostgreSQL
-- Formatação inteligente de temperaturas
-- Documentação automática da API (Swagger UI)
+### Desenvolvimento Local (Frontend)
+1. Acesse a pasta: `cd frontend`
+2. Instale: `npm install`
+3. Inicie: `npm run dev`
 
-## Licença
+## ✨ Funcionalidades
+- **Consulta em Tempo Real:** Dados meteorológicos precisos via OpenWeather.
+- **Histórico de Buscas:** Armazenamento persistente em PostgreSQL.
+- **Proxy Reverso:** Nginx configurado para evitar problemas de CORS e unificar as portas.
+- **Dockerizado:** Fácil deploy em qualquer servidor ou VPS.
+- **Interface Moderna:** Componentizada e responsiva com React.
+
+## 📄 Licença
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.

@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${USER}
+      POSTGRES_USER: ${DB_USER:-weather_user}
       POSTGRES_PASSWORD: ${PASSWORD}
     ports:
       - "5433:5432"
@@ -26,11 +26,24 @@ services:
     environment:
       API_KEY: ${API_KEY}
       DB_NAME: ${DB_NAME}
-      USER: ${USER}
+      USER: ${DB_USER:-weather_user}
       PASSWORD: ${PASSWORD}
       HOST: db
       PORT: 5432
-      FRONTEND_URL: ${FRONTEND_URL}
+      FRONTEND_URL: http://localhost:${FRONTEND_PORT:-8081}
+    networks:
+      - weather-network
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_API_URL=/api
+    container_name: weather-frontend
+    ports:
+      - "${FRONTEND_PORT:-8081}:80"
+    depends_on:
+      - api
     networks:
       - weather-network
 

@@ -28,9 +28,11 @@ async def lifespan(app: FastAPI):
 
 def create_app() -> FastAPI:
     app = FastAPI(title=settings.app_name, lifespan=lifespan)
+    frontend_port = settings.frontend_url.rsplit(':', 1)[-1]
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[settings.frontend_url],
+        allow_origin_regex=rf'^https?://(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+):{frontend_port}$',
         allow_credentials=True,
         allow_methods=['*'],
         allow_headers=['*'],
