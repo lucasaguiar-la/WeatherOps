@@ -23,25 +23,25 @@ api_Weather/
 └── docker-compose.yml  # Orquestração de todos os serviços
 ```
 
-## ⚙️ Configuração
+## Configuração
 
 ### Variáveis de Ambiente
 Crie um arquivo `.env` na raiz do projeto seguindo o modelo abaixo:
 ```env
 # Backend & DB
 API_KEY=seu_token_openweathermap
-DB_NAME=weather
-USER=postgres
+DB_NAME=weather_db
+USER=weather_user
 PASSWORD=suasenha
-FRONTEND_URL=http://localhost  # URL que acessará o frontend
 
 # Frontend (Configurações de Build)
-VITE_API_URL=http://localhost/api
+FRONTEND_URL=http://localhost:5173
+VITE_API_URL=http://localhost:8000
 ```
 
-## 🛠️ Como Executar
+## Como Executar
 
-### Via Docker (Recomendado para Produção/Portfólio)
+### Via Docker (Recomendado)
 O projeto está configurado para subir todos os serviços (Banco, API e Frontend) com um único comando. O Nginx servirá o frontend na porta 80 e encaminhará as chamadas de API.
 
 ```bash
@@ -58,12 +58,12 @@ Acesse: `http://localhost`
 2. Instale: `npm install`
 3. Inicie: `npm run dev`
 
-## ✨ Funcionalidades
-- **Consulta em Tempo Real:** Dados meteorológicos precisos via OpenWeather.
+## Funcionalidades
+- **Consulta em Tempo Real:** Dados meteorológicos precisos OpenWeather.
 - **Histórico de Buscas:** Armazenamento persistente em PostgreSQL.
 - **Proxy Reverso:** Nginx configurado para evitar problemas de CORS e unificar as portas.
 - **Dockerizado:** Fácil deploy em qualquer servidor ou VPS.
 - **Interface Moderna:** Componentizada e responsiva com React.
 
-## 📄 Licença
+## Licença
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
