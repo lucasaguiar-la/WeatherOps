@@ -9,7 +9,6 @@ export function WeatherResultCard({ weather }: WeatherResultCardProps) {
   return (
     <Card
       title={`Resultado para ${weather.city}`}
-      description="Dados ja normalizados para consumo consistente da interface."
     >
       <div className="stats-grid">
         <div className="metric">

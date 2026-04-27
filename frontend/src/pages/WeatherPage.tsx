@@ -19,7 +19,7 @@ export function WeatherPage() {
 
     return weatherMutation.error instanceof Error
       ? weatherMutation.error.message
-      : 'Nao foi possivel consultar o clima agora.';
+      : 'Não foi possível consultar o clima agora.';
   }, [weatherMutation.error]);
 
   const handleReset = () => {
@@ -31,31 +31,25 @@ export function WeatherPage() {
     <div className="page">
       <header className="page-header">
         <span className="page-header__eyebrow">Consulta</span>
-        <h1>Consulte o clima atual por cidade.</h1>
-        <p>
-          A busca usa o endpoint legado <span className="mono">GET /weather?city=</span> e
-          normaliza a resposta para a UI.
-        </p>
+        <h1>Consulte o clima atual por cidade</h1>
       </header>
 
       <div className="content-grid">
         <Card
           title="Nova consulta"
-          description="Informe uma cidade para buscar a temperatura e a descricao atual."
+          description="Informe uma cidade para buscar a temperatura e a descrição atual."
         >
           <WeatherSearchForm
             city={city}
             isLoading={weatherMutation.isPending}
-            canReset={Boolean(weatherMutation.data || city)}
             onCityChange={setCity}
-            onReset={handleReset}
             onSubmit={() => weatherMutation.mutate(city)}
           />
         </Card>
 
         <Card
           title="Como funciona"
-          description="Camada de integracao preparada para lidar com chaves em portugues e variacoes de encoding."
+          description="Camada de integração preparada para lidar com chaves em português e variações de encoding."
         >
           <div className="inline-list">
             <div className="inline-list__item">

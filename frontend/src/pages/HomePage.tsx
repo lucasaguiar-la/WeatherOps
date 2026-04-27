@@ -24,10 +24,9 @@ export function HomePage() {
     <div className="page">
       <section className="hero">
         <div className="hero__grid">
-          <h1>Seus dados de clima em um só lugar.</h1>
+          <h1>Sua plataforma de dados climáticos</h1>
           <p>
-            Este frontend organiza a experiencia em quatro areas: visao geral, consulta de
-            clima, historico operacional e monitoramento.
+            Confira a temperatura de qualquer localidade em tempo real!
           </p>
         </div>
       </section>
@@ -40,7 +39,7 @@ export function HomePage() {
               description={shortcut.description}
               interactive
             >
-              <p className="muted">Abrir area</p>
+              <p className="muted">Abrir área</p>
             </Card>
           </Link>
         ))}

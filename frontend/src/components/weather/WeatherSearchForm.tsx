@@ -3,20 +3,16 @@ import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 
 type WeatherSearchFormProps = {
-  canReset: boolean;
   city: string;
   isLoading: boolean;
   onCityChange: (value: string) => void;
-  onReset: () => void;
   onSubmit: () => void;
 };
 
 export function WeatherSearchForm({
-  canReset,
   city,
   isLoading,
   onCityChange,
-  onReset,
   onSubmit,
 }: WeatherSearchFormProps) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -29,7 +25,7 @@ export function WeatherSearchForm({
       <div className="form-row">
         <Input
           autoComplete="off"
-          hint="Exemplo: Sao Paulo, Rio de Janeiro ou Lisboa"
+          hint="Exemplo: São Paulo, Rio de Janeiro, Ceará..."
           id="city"
           label="Cidade"
           name="city"
@@ -39,9 +35,6 @@ export function WeatherSearchForm({
         />
         <Button isLoading={isLoading} type="submit">
           Consultar
-        </Button>
-        <Button disabled={!canReset} onClick={onReset} type="button" variant="secondary">
-          Nova consulta
         </Button>
       </div>
     </form>

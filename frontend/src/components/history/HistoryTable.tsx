@@ -45,11 +45,11 @@ export function HistoryTable({
             <tr>
               <th>ID</th>
               <th>Cidade</th>
-              <th>Pais</th>
+              <th>País</th>
               <th>Temperatura</th>
-              <th>Descricao</th>
+              <th>Descrição</th>
               <th>Consulta</th>
-              <th>Acoes</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>

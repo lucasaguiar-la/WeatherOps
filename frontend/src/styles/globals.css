@@ -120,6 +120,7 @@ input {
 
 .app-footer {
   padding: 0 0 2rem;
+  text-align: center;
   color: var(--color-text-soft);
   font-size: 0.9rem;
 }
@@ -155,6 +156,12 @@ input {
   margin: 0;
   color: var(--color-text-soft);
   line-height: 1.6;
+}
+.muted {
+  padding: 0.3rem;
+  width: fit-content;
+  border-radius: 5px;
+  background-color: #b1b2b26c;
 }
 
 .hero {

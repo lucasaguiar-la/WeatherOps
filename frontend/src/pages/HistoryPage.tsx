@@ -27,7 +27,7 @@ export function HistoryPage() {
     onError: (error) => {
       setFeedback({
         tone: 'error',
-        message: error instanceof Error ? error.message : 'Nao foi possivel remover o registro.',
+        message: error instanceof Error ? error.message : 'Não foi possível remover o registro.',
       });
     },
   });
@@ -41,7 +41,7 @@ export function HistoryPage() {
     onError: (error) => {
       setFeedback({
         tone: 'error',
-        message: error instanceof Error ? error.message : 'Nao foi possivel limpar o historico.',
+        message: error instanceof Error ? error.message : 'Não foi possível limpar o histórico.',
       });
     },
   });
@@ -49,12 +49,8 @@ export function HistoryPage() {
   return (
     <div className="page">
       <header className="page-header">
-        <span className="page-header__eyebrow">Historico</span>
-        <h1>Gerencie as consultas persistidas no backend.</h1>
-        <p>
-          A tabela consome <span className="mono">GET /history</span> e aplica mutacoes nos
-          endpoints de exclusao existentes.
-        </p>
+        <span className="page-header__eyebrow">Histórico</span>
+        <h1>Acompanhe as consultas feitas ao longo do tempo</h1>
       </header>
 
       {feedback && (
@@ -65,15 +61,15 @@ export function HistoryPage() {
 
       <Card
         title="Registros"
-        description="Visualize o historico de consultas, remova itens especificos ou limpe tudo com feedback imediato."
+        description="Visualize o histórico de consultas, remova itens especificos ou limpe tudo com feedback imediato."
       >
         {historyQuery.isLoading ? (
-          <div className="alert alert--info">Carregando historico...</div>
+          <div className="alert alert--info">Carregando histórico...</div>
         ) : historyQuery.isError ? (
           <div className="alert alert--error">
             {historyQuery.error instanceof Error
               ? historyQuery.error.message
-              : 'Nao foi possivel carregar o historico.'}
+              : 'Não foi possível carregar o histórico.'}
           </div>
         ) : (
           <HistoryTable

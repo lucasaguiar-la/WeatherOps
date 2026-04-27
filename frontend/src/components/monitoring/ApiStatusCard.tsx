@@ -15,7 +15,7 @@ export function ApiStatusCard({ isLoading, onRefresh, status }: ApiStatusCardPro
   return (
     <Card
       title="Status da API"
-      description="Indicador simples para saber se o backend legado esta respondendo."
+      description="Indicador simples para saber se o backend está respondendo."
     >
       <div className="stack">
         <div className="cluster">
@@ -31,15 +31,15 @@ export function ApiStatusCard({ isLoading, onRefresh, status }: ApiStatusCardPro
         <div className="inline-list">
           <div className="inline-list__item">
             <span>Mensagem</span>
-            <strong>{status?.message ?? 'Aguardando primeira verificacao...'}</strong>
+            <strong>{status?.message ?? 'Aguardando primeira verificação...'}</strong>
           </div>
           <div className="inline-list__item">
             <span>Ultima tentativa</span>
-            <strong>{status?.checkedAt ?? 'Ainda nao executada'}</strong>
+            <strong>{status?.checkedAt ?? 'Ainda não executada'}</strong>
           </div>
           <div className="inline-list__item">
             <span>Origem</span>
-            <strong>{status?.source ?? 'legacy-root'}</strong>
+            <strong>{status?.source ?? 'root'}</strong>
           </div>
         </div>
       </div>

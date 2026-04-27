@@ -14,11 +14,7 @@ export function MonitoringPage() {
     <div className="page">
       <header className="page-header">
         <span className="page-header__eyebrow">Monitoramento</span>
-        <h1>Disponibilidade da API em tempo real.</h1>
-        <p>
-          A verificacao atual usa <span className="mono">GET /</span> e ja deixa o servico
-          preparado para migrar para um futuro <span className="mono">/health</span>.
-        </p>
+        <h1>Disponibilidade da API em tempo real</h1>
       </header>
 
       <div className="panel-grid">
@@ -30,7 +26,7 @@ export function MonitoringPage() {
 
         <Card
           title="Leitura operacional"
-          description="Visao resumida para uso do time de frontend enquanto o backend segue legado."
+          description="Visão resumida."
         >
           <div className="inline-list">
             <div className="inline-list__item">
@@ -38,7 +34,7 @@ export function MonitoringPage() {
               <strong className="mono">GET /</strong>
             </div>
             <div className="inline-list__item">
-              <span>Atualizacao automatica</span>
+              <span>Atualização automática</span>
               <strong>A cada 30 segundos</strong>
             </div>
             <div className="inline-list__item">
