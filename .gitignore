@@ -1,16 +1,48 @@
-[CACHE FILES]
-__pycache__
-.vscode
-*.pyc
-*.pyo
-*.pyd
-data/*.json
+# -----------------------------
+# Python
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.so
+.Python
 
-[VENV]
-/venv
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
 
-[TEST DIR AND FILES]
-/tests
+# Tool/test caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
 
-[ENV]
+# -----------------------------
+# Frontend (Node/Vite)
+# -----------------------------
+frontend/node_modules/
+frontend/dist/
+
+# -----------------------------
+# Local environment and secrets
+# -----------------------------
 .env
+.env.*
+!.env.example
+
+# -----------------------------
+# Local generated data/cache
+# -----------------------------
+data/*.json
+backend/data/*.json
+
+# -----------------------------
+# Editor / OS
+# -----------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
