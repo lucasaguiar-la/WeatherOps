@@ -13,13 +13,10 @@ export function WeatherPage() {
   });
 
   const errorMessage = useMemo(() => {
-    if (!weatherMutation.error) {
-      return '';
-    }
-
+    if (!weatherMutation.error) return '';
     return weatherMutation.error instanceof Error
       ? weatherMutation.error.message
-      : 'Não foi possível consultar o clima agora.';
+      : 'Não foi possível obter o clima agora. Tente novamente.';
   }, [weatherMutation.error]);
 
   const handleReset = () => {
@@ -31,48 +28,35 @@ export function WeatherPage() {
     <div className="page">
       <header className="page-header">
         <span className="page-header__eyebrow">Consulta</span>
-        <h1>Consulte o clima atual por cidade</h1>
+        <h1>Clima atual por cidade</h1>
+        <p>Digite o nome de qualquer cidade e veja a temperatura e condições em tempo real.</p>
       </header>
 
-      <div className="content-grid">
-        <Card
-          title="Nova consulta"
-          description="Informe uma cidade para buscar a temperatura e a descrição atual."
-        >
-          <WeatherSearchForm
-            city={city}
-            isLoading={weatherMutation.isPending}
-            onCityChange={setCity}
-            onSubmit={() => weatherMutation.mutate(city)}
-          />
-        </Card>
+      <Card title="Nova consulta">
+        <WeatherSearchForm
+          city={city}
+          isLoading={weatherMutation.isPending}
+          onCityChange={setCity}
+          onSubmit={() => weatherMutation.mutate(city)}
+          onReset={weatherMutation.data ? handleReset : undefined}
+        />
+      </Card>
 
-        <Card
-          title="Como funciona"
-          description="Camada de integração preparada para lidar com chaves em português e variações de encoding."
-        >
-          <div className="inline-list">
-            <div className="inline-list__item">
-              <span>Servico</span>
-              <strong className="mono">getWeatherByCity(city)</strong>
-            </div>
-            <div className="inline-list__item">
-              <span>Adapter</span>
-              <strong className="mono">weatherAdapter</strong>
-            </div>
-            <div className="inline-list__item">
-              <span>Tratamento</span>
-              <strong>Loading, erro e reset</strong>
-            </div>
-          </div>
-        </Card>
-      </div>
+      {weatherMutation.isPending && (
+        <div className="alert alert--info">
+          Buscando dados climáticos...
+        </div>
+      )}
 
-      {weatherMutation.isPending && <div className="alert alert--info">Buscando clima atual...</div>}
+      {errorMessage && (
+        <div className="alert alert--error">
+          {errorMessage}
+        </div>
+      )}
 
-      {errorMessage && <div className="alert alert--error">{errorMessage}</div>}
-
-      {weatherMutation.data && <WeatherResultCard weather={weatherMutation.data} />}
+      {weatherMutation.data && (
+        <WeatherResultCard weather={weatherMutation.data} />
+      )}
     </div>
   );
 }

@@ -1,49 +1,44 @@
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { ApiStatusCard } from '../components/monitoring/ApiStatusCard';
-import { Card } from '../components/ui/Card';
 import { getApiStatus } from '../services/monitoring';
 
+const REFRESH_INTERVAL = 30_000;
+
 export function MonitoringPage() {
+  const [countdown, setCountdown] = useState(REFRESH_INTERVAL / 1000);
+
   const statusQuery = useQuery({
     queryKey: ['api-status'],
     queryFn: getApiStatus,
-    refetchInterval: 30_000,
+    refetchInterval: REFRESH_INTERVAL,
   });
+
+  useEffect(() => {
+    setCountdown(REFRESH_INTERVAL / 1000);
+    const interval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) return REFRESH_INTERVAL / 1000;
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [statusQuery.dataUpdatedAt]);
 
   return (
     <div className="page">
       <header className="page-header">
         <span className="page-header__eyebrow">Monitoramento</span>
-        <h1>Disponibilidade da API em tempo real</h1>
+        <h1>Status do serviço</h1>
+        <p>Disponibilidade da API verificada automaticamente a cada 30 segundos.</p>
       </header>
 
-      <div className="panel-grid">
-        <ApiStatusCard
-          isLoading={statusQuery.isLoading}
-          onRefresh={() => statusQuery.refetch()}
-          status={statusQuery.data}
-        />
-
-        <Card
-          title="Leitura operacional"
-          description="Visão resumida."
-        >
-          <div className="inline-list">
-            <div className="inline-list__item">
-              <span>Endpoint atual</span>
-              <strong className="mono">GET /</strong>
-            </div>
-            <div className="inline-list__item">
-              <span>Atualização automática</span>
-              <strong>A cada 30 segundos</strong>
-            </div>
-            <div className="inline-list__item">
-              <span>Pronto para</span>
-              <strong className="mono">/health</strong>
-            </div>
-          </div>
-        </Card>
-      </div>
+      <ApiStatusCard
+        isLoading={statusQuery.isLoading}
+        onRefresh={() => statusQuery.refetch()}
+        status={statusQuery.data}
+        countdown={countdown}
+      />
     </div>
   );
 }
