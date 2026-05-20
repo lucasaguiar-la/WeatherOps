@@ -48,7 +48,7 @@ export function ApiStatusCard({ isLoading, onRefresh, status, countdown }: ApiSt
         </div>
 
         <div>
-          <p className="muted" style={{ marginBottom: '0.6rem' }}>Disponibilidade simulada — últimas 24h</p>
+          <p className="muted" style={{ marginBottom: '0.6rem' }}>Disponibilidade nas últimas 24h</p>
           <div className="uptime-timeline">
             {MOCK_BARS.map((state, i) => (
               <div

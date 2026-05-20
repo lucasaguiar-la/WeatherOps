@@ -41,7 +41,7 @@ def create_app() -> FastAPI:
 
     @app.get('/')
     def read_root() -> dict[str, str]:
-        return {'\u00d3la': 'Bem-vindo \u00e0 Weather API!'}
+        return {'\u00d3la': 'Bem-vindo \u00e0 WeatherOps!'}
 
     return app
 

@@ -30,7 +30,7 @@ export function MonitoringPage() {
       <header className="page-header">
         <span className="page-header__eyebrow">Monitoramento</span>
         <h1>Status do serviço</h1>
-        <p>Disponibilidade da API verificada automaticamente a cada 30 segundos.</p>
+        <p>Disponibilidade do serviço verificado automaticamente a cada 30 segundos.</p>
       </header>
 
       <ApiStatusCard

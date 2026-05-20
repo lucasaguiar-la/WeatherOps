@@ -79,21 +79,21 @@ button, input {
   height: 2.5rem;
   display: grid;
   place-items: center;
-  border-radius: 12px;
+  border-radius: 50%;
   background: var(--color-navy);
   box-shadow: var(--shadow-sm);
   flex-shrink: 0;
 }
 
 .brand__mark svg {
-  width: 18px;
-  height: 18px;
-  animation: cloud-float 4s ease-in-out infinite;
+  width: 30px;
+  height: 30px;
+  animation: cloud-float 3s ease-in-out infinite;
 }
 
 @keyframes cloud-float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-2px); }
+  0%, 100% { transform: translateY(1px); }
+  50%       { transform: translateY(-4px); }
 }
 
 .brand__title {
@@ -251,8 +251,8 @@ button, input {
   border-radius: var(--radius-xl);
   border: 1px solid var(--color-border-accent);
   background:
-    radial-gradient(ellipse 80% 120% at 110% 50%, rgba(27, 32, 87, 0.55) 0%, transparent 65%),
-    linear-gradient(135deg, #1B2057 0%, #2D3580 60%, #1B2057 100%);
+    radial-gradient(ellipse 80% 120% at 110% 50%, rgba(158, 158, 158, 0.55) 0%, transparent 65%),
+    linear-gradient(135deg, #acacaf 0%, #4ca8f3 60%, #9fa5e6 100%);
   box-shadow: var(--shadow-lg);
   color: white;
 }
@@ -623,14 +623,14 @@ button, input {
 }
 
 .btn--primary {
-  color: var(--color-navy);
-  background: var(--color-primary);
-  box-shadow: 0 2px 8px rgba(91, 224, 74, 0.35);
+  color: var(--color-sky-soft);
+  background: var(--color-sky);
+  box-shadow: 0 2px 8px rgba(0, 68, 95, 0.35);
 }
 
 .btn--primary:hover:not(:disabled) {
-  background: var(--color-primary-strong);
-  box-shadow: 0 4px 16px rgba(91, 224, 74, 0.4);
+  background: var(--color-sky);
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.534);
 }
 
 .btn--secondary {
