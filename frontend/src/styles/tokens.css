@@ -1,27 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap');
+
 :root {
-  --font-sans: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  --color-bg: #f4f7fb;
-  --color-bg-strong: #e7eef8;
-  --color-surface: rgba(255, 255, 255, 0.92);
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', 'Consolas', monospace;
+
+  /* Paleta principal */
+  --color-green:        #5BE04A;
+  --color-green-strong: #3EC42E;
+  --color-green-soft:   #EDFBEB;
+  --color-green-mid:    #C2F0BD;
+
+  --color-navy:         #1B2057;
+  --color-navy-mid:     #2D3580;
+  --color-navy-soft:    #E8EAF6;
+
+  --color-sky:          #6B8FD4;
+  --color-sky-soft:     #EBF0FB;
+
+  --color-slate:        #485570;
+  --color-slate-soft:   #F0F2F7;
+
+  /* Superfícies */
+  --color-bg:           #F6F8FC;
+  --color-bg-strong:    #ECF0F8;
+  --color-surface:      rgba(255, 255, 255, 0.96);
   --color-surface-strong: #ffffff;
-  --color-text: #132238;
-  --color-text-soft: #506175;
-  --color-border: rgba(19, 34, 56, 0.12);
-  --color-border-strong: rgba(19, 34, 56, 0.22);
-  --color-primary: #0f766e;
-  --color-primary-strong: #0b5c56;
-  --color-primary-soft: #d9f3ef;
-  --color-accent: #f59e0b;
-  --color-success: #15803d;
-  --color-success-soft: #dcfce7;
-  --color-danger: #b91c1c;
-  --color-danger-soft: #fee2e2;
-  --color-warning: #a16207;
-  --color-warning-soft: #fef3c7;
-  --shadow-sm: 0 10px 24px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 18px 40px rgba(15, 23, 42, 0.1);
-  --radius-sm: 12px;
-  --radius-md: 18px;
-  --radius-lg: 24px;
-  --container-width: 1180px;
+
+  /* Texto */
+  --color-text:         #141B3C;
+  --color-text-soft:    #5A6580;
+  --color-text-muted:   #8A94AB;
+
+  /* Bordas */
+  --color-border:       rgba(26, 32, 87, 0.09);
+  --color-border-strong: rgba(26, 32, 87, 0.18);
+  --color-border-accent: rgba(91, 224, 74, 0.35);
+
+  /* Semânticas */
+  --color-primary:      #5BE04A;
+  --color-primary-strong: #3EC42E;
+  --color-primary-soft:  #EDFBEB;
+  --color-primary-text:  #1A5C14;
+
+  --color-success:      #1A7F37;
+  --color-success-soft: #DCFCE7;
+  --color-danger:       #B91C1C;
+  --color-danger-soft:  #FEE2E2;
+  --color-warning:      #92400E;
+  --color-warning-soft: #FEF3C7;
+  --color-info:         #1B2057;
+  --color-info-soft:    #E8EAF6;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(26, 32, 87, 0.07), 0 1px 2px rgba(26, 32, 87, 0.04);
+  --shadow-md: 0 8px 24px rgba(26, 32, 87, 0.10), 0 2px 6px rgba(26, 32, 87, 0.05);
+  --shadow-lg: 0 16px 48px rgba(26, 32, 87, 0.13), 0 4px 12px rgba(26, 32, 87, 0.06);
+
+  /* Forma */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+
+  --container-width: 1160px;
 }

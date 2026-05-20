@@ -46,25 +46,28 @@ export function HistoryPage() {
     },
   });
 
+  const count = historyQuery.data?.length ?? 0;
+
   return (
     <div className="page">
       <header className="page-header">
         <span className="page-header__eyebrow">Histórico</span>
-        <h1>Acompanhe as consultas feitas ao longo do tempo</h1>
+        <h1>Consultas anteriores</h1>
+        <p>Registros de todas as buscas realizadas, com cidade, temperatura e data.</p>
       </header>
 
       {feedback && (
-        <div className={`alert ${feedback.tone === 'success' ? 'alert--success' : 'alert--error'}`}>
+        <div className={`alert alert--${feedback.tone === 'success' ? 'success' : 'error'}`}>
           {feedback.message}
         </div>
       )}
 
       <Card
-        title="Registros"
-        description="Visualize o histórico de consultas, remova itens especificos ou limpe tudo com feedback imediato."
+        title={count > 0 ? `${count} registro${count !== 1 ? 's' : ''}` : 'Registros'}
+        description={count === 0 ? 'Nenhuma consulta realizada ainda.' : undefined}
       >
         {historyQuery.isLoading ? (
-          <div className="alert alert--info">Carregando histórico...</div>
+          <div className="alert alert--info">Carregando registros...</div>
         ) : historyQuery.isError ? (
           <div className="alert alert--error">
             {historyQuery.error instanceof Error
