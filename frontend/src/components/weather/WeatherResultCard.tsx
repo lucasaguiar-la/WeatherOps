@@ -5,24 +5,39 @@ type WeatherResultCardProps = {
   weather: WeatherData;
 };
 
+function getTempColor(value: number | null): string {
+  if (value === null) return 'var(--color-navy)';
+  if (value <= 10)  return 'var(--color-sky)';
+  if (value <= 20)  return 'var(--color-navy-mid)';
+  if (value <= 30)  return 'var(--color-primary-text)';
+  return '#b45309';
+}
+
 export function WeatherResultCard({ weather }: WeatherResultCardProps) {
+  const color = getTempColor(weather.temperatureValue);
+
+  const match = weather.temperatureLabel.match(/^([\d.,-]+)\s*(.*)$/);
+  const numericPart = match ? match[1] : weather.temperatureLabel;
+  const unitPart    = match ? match[2] : '';
+
   return (
-    <Card
-      title={`Resultado para ${weather.city}`}
-    >
-      <div className="stats-grid">
-        <div className="metric">
-          <span className="metric__label">Temperatura</span>
-          <strong className="metric__value">{weather.temperatureLabel}</strong>
+    <Card title={weather.city}>
+      <div className="weather-result">
+        <div className="weather-result__temp">
+          <span
+            className="weather-result__temp-value"
+            style={{ color }}
+          >
+            {numericPart}
+          </span>
+          {unitPart && (
+            <span className="weather-result__temp-unit">{unitPart}</span>
+          )}
         </div>
-        <div className="metric">
-          <span className="metric__label">Descricao</span>
-          <strong className="metric__value metric__value--compact">{weather.description}</strong>
-        </div>
-        <div className="metric">
-          <span className="metric__label">Cidade</span>
-          <strong className="metric__value metric__value--compact">{weather.city}</strong>
-        </div>
+
+        <span className="weather-result__desc">
+          {weather.description}
+        </span>
       </div>
     </Card>
   );

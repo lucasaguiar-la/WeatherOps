@@ -7,6 +7,7 @@ type WeatherSearchFormProps = {
   isLoading: boolean;
   onCityChange: (value: string) => void;
   onSubmit: () => void;
+  onReset?: () => void;
 };
 
 export function WeatherSearchForm({
@@ -14,6 +15,7 @@ export function WeatherSearchForm({
   isLoading,
   onCityChange,
   onSubmit,
+  onReset,
 }: WeatherSearchFormProps) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,17 +27,22 @@ export function WeatherSearchForm({
       <div className="form-row">
         <Input
           autoComplete="off"
-          hint="Exemplo: São Paulo, Rio de Janeiro, Ceará..."
+          hint="Ex: São Paulo, Rio de Janeiro, Fortaleza..."
           id="city"
           label="Cidade"
           name="city"
           onChange={(event) => onCityChange(event.target.value)}
-          placeholder="Digite o nome da cidade"
+          placeholder="Nome da cidade"
           value={city}
         />
-        <Button isLoading={isLoading} type="submit">
+        <Button isLoading={isLoading} type="submit" disabled={!city.trim()}>
           Consultar
         </Button>
+        {onReset && (
+          <Button type="button" variant="ghost" onClick={onReset}>
+            Limpar
+          </Button>
+        )}
       </div>
     </form>
   );

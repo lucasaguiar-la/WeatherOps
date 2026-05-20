@@ -20,7 +20,8 @@ export function HistoryTable({
     return (
       <div className="stack">
         <div className="empty-state">
-          Nenhum registro encontrado. Faça uma consulta de clima para popular o historico.
+          Nenhuma consulta realizada ainda.<br />
+          Faça uma busca na aba <strong>Consulta</strong> para ver os registros aqui.
         </div>
         <div className="cluster">
           <Button disabled variant="danger">
@@ -43,24 +44,24 @@ export function HistoryTable({
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>#</th>
               <th>Cidade</th>
               <th>País</th>
               <th>Temperatura</th>
               <th>Descrição</th>
-              <th>Consulta</th>
-              <th>Ações</th>
+              <th>Data</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {records.map((record) => (
               <tr key={record.id}>
-                <td>{record.id}</td>
-                <td>{record.city}</td>
+                <td className="muted">{record.id}</td>
+                <td><strong>{record.city}</strong></td>
                 <td>{record.country}</td>
-                <td>{record.temperatureLabel}</td>
-                <td>{record.description}</td>
-                <td>{record.queriedAt}</td>
+                <td><strong>{record.temperatureLabel}</strong></td>
+                <td style={{ textTransform: 'capitalize' }}>{record.description}</td>
+                <td className="muted">{record.queriedAt}</td>
                 <td>
                   <Button
                     isLoading={deletingId === record.id}
