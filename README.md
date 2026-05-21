@@ -1,69 +1,85 @@
 # WeatherOps
 
-Este é um projeto **Fullstack** para consulta de previsão do tempo, com histórico de buscas e monitoramento de API. O projeto utiliza uma arquitetura robusta com Frontend em React, Backend em FastAPI e banco de dados PostgreSQL, tudo orquestrado via Docker e utilizando Nginx.
+WeatherOps é uma aplicação fullstack para consulta de dados meteorológicos em tempo real, com histórico de buscas persistente e monitoramento de disponibilidade da API. O sistema registra automaticamente a saúde do serviço a cada 60 segundos, permitindo acompanhar oscilações de disponibilidade e tempo de resposta ao longo do tempo.
 
-</br>
+## Preview
 
-##  Tecnologias
-- **Frontend:** React (TypeScript), Vite, TanStack Query.
-- **Backend:** Python 3.13, FastAPI, PostgreSQL.
-- **DevOps/Infra:** Docker, Docker Compose, Nginx (Reverse Proxy).
-- **API Externa:** OpenWeatherMap.
+<div style="max-width: 600px; overflow: hidden;">
+  <img src="./frontend/assets/weather-homepage.png" alt="Imagem-Portfólio" style="width: 100%; height: auto;">
+</div>
 
-## Estrutura do Projeto
+## Tecnologias
+
+- **Frontend:** React 18 com TypeScript, Vite, TanStack Query
+- **Backend:** Python 3.13, FastAPI, PostgreSQL
+- **Infraestrutura:** Docker, Docker Compose, Nginx (reverse proxy)
+- **API externa:** OpenWeatherMap
+
+## Funcionalidades
+
+- Consulta de dados meteorológicos por cidade via OpenWeatherMap
+- Histórico de buscas armazenado em banco de dados relacional
+- Monitoramento de disponibilidade com gráfico de barras das últimas 24 horas
+- Métricas de uptime, tempo médio de resposta, total de checagens e último incidente
+- Interface responsiva e componentizada
+
+## Estrutura do projeto
+
 ```text
-api_Weather/
-├── backend/            # API REST em FastAPI
-│   ├── app/            # Lógica central, rotas e banco
+WeatherOps/
+├── backend/
+│   ├── app/            # Rotas, serviços e lógica de negócio
 │   └── database/       # Scripts SQL e modelagem
-├── frontend/           # SPA em React + TypeScript
+├── frontend/
 │   ├── src/            # Componentes, hooks e serviços
 │   ├── Dockerfile      # Build multi-stage (Node + Nginx)
 │   └── nginx.conf      # Configuração de proxy reverso
-└── docker-compose.yml  # Orquestração de todos os serviços
+└── docker-compose.yml  # Orquestração dos serviços
 ```
 
 ## Configuração
 
-### Variáveis de Ambiente
-Crie um arquivo `.env` na raiz do projeto seguindo o modelo abaixo:
+Crie um arquivo `.env` na raiz do projeto com as variáveis abaixo:
+
 ```env
-# Backend & DB
 API_KEY=seu_token_openweathermap
 DB_NAME=weather_db
 USER=weather_user
-PASSWORD=suasenha
+PASSWORD=sua_senha
 
-# Frontend (Configurações de Build)
 FRONTEND_URL=http://localhost:5173
 VITE_API_URL=http://localhost:8000
 ```
 
-## Como Executar
+## Como executar
 
-### Via Docker (Recomendado)
-O projeto está configurado para subir todos os serviços (Banco, API e Frontend) com um único comando. O Nginx servirá o frontend na porta 80 e encaminhará as chamadas de API.
+### Via Docker (recomendado)
+
+Sobe todos os serviços com um único comando. O Nginx serve o frontend na porta 80 e encaminha as requisições de API.
 
 ```bash
 docker compose up --build -d
 ```
+
 Acesse: `http://localhost`
 
-### Desenvolvimento Local (Backend)
-1. Instale as dependências: `pip install -r requirements.txt`
-2. Inicie a API: `python main.py` ou `uvicorn backend.app.main:app --reload`
+### Desenvolvimento local
 
-### Desenvolvimento Local (Frontend)
-1. Acesse a pasta: `cd frontend`
-2. Instale: `npm install`
-3. Inicie: `npm run dev`
+**Backend:**
 
-## Funcionalidades
-- **Consulta em Tempo Real:** Dados meteorológicos precisos OpenWeather.
-- **Histórico de Buscas:** Armazenamento persistente em PostgreSQL.
-- **Proxy Reverso:** Nginx configurado para evitar problemas de CORS e unificar as portas.
-- **Dockerizado:** Fácil deploy em qualquer servidor ou VPS.
-- **Interface Moderna:** Componentizada e responsiva com React.
+```bash
+pip install -r requirements.txt
+uvicorn backend.app.main:app --reload
+```
+
+**Frontend:**
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ## Licença
+
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
