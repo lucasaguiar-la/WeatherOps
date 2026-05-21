@@ -8,6 +8,8 @@ WeatherOps é uma aplicação fullstack para consulta de dados meteorológicos e
   <img src="./frontend/assets/weather-homepage.png" alt="Imagem-Portfólio" style="width: 100%; height: auto;">
 </div>
 
+> Acesse via: https://weather.lucasaguiar.online/
+
 ## Tecnologias
 
 - **Frontend:** React 18 com TypeScript, Vite, TanStack Query
