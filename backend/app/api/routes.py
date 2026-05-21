@@ -1,4 +1,5 @@
 from collections.abc import Generator
+from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
@@ -104,3 +105,47 @@ def healthcheck() -> dict[str, str]:
         'status': 'ok',
         'service': settings.app_name,
     }
+
+
+@router.get('/monitoring/availability')
+def get_availability(db: Database = Depends(get_db)) -> dict:
+    rows = db.get_availability_last_24h()
+    summary_row = db.get_health_summary()
+
+    row_map: dict[datetime, dict] = {
+        row[0].replace(tzinfo=None): {
+            'status': row[3],
+            'uptime_pct': float(row[1]) if row[1] is not None else None,
+            'avg_response_ms': int(row[2]) if row[2] is not None else None,
+        }
+        for row in rows
+    }
+
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    hourly_bars = []
+    for offset in range(23, -1, -1):
+        bucket = (now - timedelta(hours=offset)).replace(minute=0, second=0, microsecond=0)
+        slot = row_map.get(bucket)
+        hourly_bars.append({
+            'hour': bucket.isoformat(),
+            'status': slot['status'] if slot else 'no-data',
+            'uptime_pct': slot['uptime_pct'] if slot else None,
+            'avg_response_ms': slot['avg_response_ms'] if slot else None,
+        })
+
+    summary: dict = {
+        'uptime_pct_24h': None,
+        'avg_response_ms_24h': None,
+        'total_checks_24h': 0,
+        'last_incident_at': None,
+    }
+    if summary_row:
+        s = summary_row
+        summary = {
+            'uptime_pct_24h': float(s[0]) if s[0] is not None else None,
+            'avg_response_ms_24h': int(s[1]) if s[1] is not None else None,
+            'total_checks_24h': int(s[2]) if s[2] is not None else 0,
+            'last_incident_at': s[3].isoformat() if s[3] is not None else None,
+        }
+
+    return {'hourly_bars': hourly_bars, 'summary': summary}

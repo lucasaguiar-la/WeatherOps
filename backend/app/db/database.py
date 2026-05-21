@@ -38,10 +38,68 @@ class Database:
                 '''
             )
 
+            self.cur.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS health_logs (
+                    id               SERIAL PRIMARY KEY,
+                    checked_at       TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    status           VARCHAR(10) NOT NULL,
+                    response_time_ms INT NOT NULL,
+                    http_status_code INT NOT NULL
+                );
+                '''
+            )
+
+            self.cur.execute(
+                '''
+                CREATE INDEX IF NOT EXISTS idx_health_logs_checked_at ON health_logs (checked_at);
+                '''
+            )
+
             self.conn.commit()
         except Exception:
             self.conn.rollback()
             raise
+
+    def insert_health_log(self, status: str, response_time_ms: int, http_status_code: int) -> None:
+        query = '''
+            INSERT INTO health_logs (status, response_time_ms, http_status_code)
+            VALUES (%s, %s, %s)
+        '''
+        self.cur.execute(query, (status, response_time_ms, http_status_code))
+        self.conn.commit()
+
+    def get_availability_last_24h(self) -> list[tuple]:
+        query = '''
+            SELECT
+                date_trunc('hour', checked_at) AS hour_bucket,
+                ROUND(100.0 * COUNT(*) FILTER (WHERE status != 'off') / COUNT(*), 1) AS uptime_pct,
+                ROUND(AVG(response_time_ms), 0) AS avg_response_ms,
+                CASE
+                    WHEN bool_or(status = 'off')  THEN 'off'
+                    WHEN bool_or(status = 'warn') THEN 'warn'
+                    ELSE 'ok'
+                END AS worst_status
+            FROM health_logs
+            WHERE checked_at >= NOW() - INTERVAL '24 hours'
+            GROUP BY hour_bucket
+            ORDER BY hour_bucket ASC;
+        '''
+        self.cur.execute(query)
+        return self.cur.fetchall()
+
+    def get_health_summary(self) -> tuple | None:
+        query = '''
+            SELECT
+                ROUND(100.0 * COUNT(*) FILTER (WHERE status != 'off') / NULLIF(COUNT(*), 0), 1) AS uptime_pct,
+                ROUND(AVG(response_time_ms), 0) AS avg_response_ms,
+                COUNT(*) AS total_checks,
+                MAX(checked_at) FILTER (WHERE status = 'off') AS last_incident_at
+            FROM health_logs
+            WHERE checked_at >= NOW() - INTERVAL '24 hours';
+        '''
+        self.cur.execute(query)
+        return self.cur.fetchone()
 
     def insert_location(self, state: str, country: str, latitude: float, longitude: float) -> int:
         query = '''

@@ -30,3 +30,20 @@ export type ApiDeleteHistoryResponse = {
 export type ApiClearHistoryResponse = {
   Sucesso?: string;
 };
+
+export type ApiAvailabilityBar = {
+  hour: string;
+  status: 'ok' | 'warn' | 'off' | 'no-data';
+  uptime_pct: number | null;
+  avg_response_ms: number | null;
+};
+
+export type ApiAvailabilityResponse = {
+  hourly_bars: ApiAvailabilityBar[];
+  summary: {
+    uptime_pct_24h: number | null;
+    avg_response_ms_24h: number | null;
+    total_checks_24h: number;
+    last_incident_at: string | null;
+  };
+};

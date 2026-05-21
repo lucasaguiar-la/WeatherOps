@@ -1,5 +1,5 @@
-import type { ApiRootResponse } from '../types/api';
-import type { ApiStatus } from '../types/domain';
+import type { ApiAvailabilityResponse, ApiRootResponse } from '../types/api';
+import type { ApiStatus, AvailabilityBar, MonitoringAvailability } from '../types/domain';
 import { http } from './http';
 
 const LEGACY_MONITORING_PATH = '/';
@@ -20,6 +20,25 @@ function fixLegacyText(value: string) {
     ['\u00c3\u00a7', '\u00e7'],
     ['\u00c2\u00ba', '\u00ba'],
   ].reduce((text, [from, to]) => text.split(from).join(to), value).trim();
+}
+
+export async function getAvailability(): Promise<MonitoringAvailability> {
+  const data = await http<ApiAvailabilityResponse>('/monitoring/availability');
+
+  const bars: AvailabilityBar[] = data.hourly_bars.map((bar) => ({
+    hour: bar.hour,
+    status: bar.status === 'no-data' ? 'off' : bar.status,
+    uptimePct: bar.uptime_pct,
+    avgResponseMs: bar.avg_response_ms,
+  }));
+
+  return {
+    bars,
+    uptimePct24h: data.summary.uptime_pct_24h,
+    avgResponseMs24h: data.summary.avg_response_ms_24h,
+    totalChecks24h: data.summary.total_checks_24h,
+    lastIncidentAt: data.summary.last_incident_at,
+  };
 }
 
 export async function getApiStatus(): Promise<ApiStatus> {

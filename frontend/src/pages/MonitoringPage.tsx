@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { ApiStatusCard } from '../components/monitoring/ApiStatusCard';
-import { getApiStatus } from '../services/monitoring';
+import { getApiStatus, getAvailability } from '../services/monitoring';
 
 const REFRESH_INTERVAL = 30_000;
 
@@ -11,6 +11,12 @@ export function MonitoringPage() {
   const statusQuery = useQuery({
     queryKey: ['api-status'],
     queryFn: getApiStatus,
+    refetchInterval: REFRESH_INTERVAL,
+  });
+
+  const availabilityQuery = useQuery({
+    queryKey: ['api-availability'],
+    queryFn: getAvailability,
     refetchInterval: REFRESH_INTERVAL,
   });
 
@@ -38,6 +44,7 @@ export function MonitoringPage() {
         onRefresh={() => statusQuery.refetch()}
         status={statusQuery.data}
         countdown={countdown}
+        availability={availabilityQuery.data}
       />
     </div>
   );

@@ -25,3 +25,18 @@ export type ApiStatus = {
 export type ActionResult = {
   message: string;
 };
+
+export type AvailabilityBar = {
+  hour: string;
+  status: 'ok' | 'warn' | 'off';
+  uptimePct: number | null;
+  avgResponseMs: number | null;
+};
+
+export type MonitoringAvailability = {
+  bars: AvailabilityBar[];
+  uptimePct24h: number | null;
+  avgResponseMs24h: number | null;
+  totalChecks24h: number;
+  lastIncidentAt: string | null;
+};
